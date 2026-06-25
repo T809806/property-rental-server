@@ -180,6 +180,7 @@ export const approveProperty = async (req, res) => {
         req.params.id,
         {
           status: "Approved",
+          rejectionFeedback: "",
         },
         {
           new: true,
@@ -208,11 +209,14 @@ export const approveProperty = async (req, res) => {
 export const rejectProperty = async (req, res) => {
   try {
 
+    const { feedback } = req.body;
+
     const property =
       await Property.findByIdAndUpdate(
         req.params.id,
         {
           status: "Rejected",
+          rejectionFeedback: feedback,
         },
         {
           new: true,
@@ -236,3 +240,25 @@ export const rejectProperty = async (req, res) => {
     });
   }
 };
+
+export const getAllPropertiesAdmin =
+  async (req, res) => {
+    try {
+
+      const properties =
+        await Property.find()
+          .populate(
+            "owner",
+            "name email"
+          );
+
+      res.status(200).json(
+        properties
+      );
+
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  };

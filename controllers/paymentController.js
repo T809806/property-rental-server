@@ -1,30 +1,93 @@
-import stripe from "../utils/stripe.js";
+import Stripe from "stripe";
+import dotenv from "dotenv";
+import Transaction from "../models/Transaction.js";
 
-export const createPaymentSession = async (req, res) => {
-  try {
-    const { amount, bookingId } = req.body;
+dotenv.config();
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "bdt",
-            product_data: {
-              name: "Property Booking Payment",
-            },
-            unit_amount: amount * 100,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      success_url: `http://localhost:5173/success?bookingId=${bookingId}`,
-      cancel_url: `http://localhost:5173/cancel`,
-    });
+const stripe = new Stripe(
+  process.env.STRIPE_SECRET_KEY
+);
 
-    res.json({ url: session.url });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// CREATE PAYMENT INTENT
+export const createPayment =
+  async (req, res) => {
+    try {
+      const { amount } = req.body;
+
+      const paymentIntent =
+        await stripe.paymentIntents.create(
+          {
+            amount: amount * 100,
+            currency: "usd",
+          }
+        );
+
+      res.json({
+        clientSecret:
+          paymentIntent.client_secret,
+      });
+
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+
+// SAVE TRANSACTION
+export const saveTransaction =
+  async (req, res) => {
+    try {
+      const {
+        transactionId,
+        property,
+        tenant,
+        owner,
+        amount,
+      } = req.body;
+
+      const newTransaction =
+        await Transaction.create({
+          transactionId,
+          property,
+          tenant,
+          owner,
+          amount,
+        });
+
+      res.status(201).json({
+        message:
+          "Transaction saved",
+        transaction:
+          newTransaction,
+      });
+
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+
+// GET ALL TRANSACTIONS (ADMIN)
+export const getTransactions =
+  async (req, res) => {
+    try {
+
+      const transactions =
+        await Transaction.find()
+          .populate(
+            "property tenant owner"
+          )
+          .sort({ createdAt: -1 });
+
+      res.status(200).json(
+        transactions
+      );
+
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  };

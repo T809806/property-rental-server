@@ -10,6 +10,7 @@ import favoriteRoutes from "./routes/favoriteRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import ownerRoutes from "./routes/ownerRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.use("/api/favorites", favoriteRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/owner", ownerRoutes);
+app.use("/api/users", userRoutes);
 
 // test route
 app.get("/", (req, res) => {
