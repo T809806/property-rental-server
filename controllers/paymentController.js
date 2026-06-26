@@ -5,8 +5,12 @@ import Transaction from "../models/Transaction.js";
 dotenv.config();
 
 const stripe = new Stripe(
+ 
   process.env.STRIPE_SECRET_KEY
+  
 );
+
+console.log("Stripe Secret:", process.env.STRIPE_SECRET_KEY);
 
 // CREATE PAYMENT INTENT
 export const createPayment =
@@ -17,7 +21,7 @@ export const createPayment =
       const paymentIntent =
         await stripe.paymentIntents.create(
           {
-            amount: amount * 100,
+            amount: Math.round(amount * 100),
             currency: "usd",
           }
         );
@@ -86,8 +90,11 @@ export const getTransactions =
       );
 
     } catch (error) {
-      res.status(500).json({
-        message: error.message,
-      });
-    }
+  console.log("Stripe Error:");
+  console.log(error);
+
+  res.status(500).json({
+    message: error.message,
+  });
+}
   };
