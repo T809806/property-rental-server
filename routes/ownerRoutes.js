@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-// OWNER ANALYTICS
+
 router.get(
   "/analytics",
   verifyToken,
@@ -19,7 +19,7 @@ router.get(
   getOwnerAnalytics
 );
 
-// MONTHLY EARNINGS CHART
+
 router.get(
   "/monthly-earnings",
   verifyToken,
@@ -27,7 +27,7 @@ router.get(
   getMonthlyEarnings
 );
 
-// OWNER PROPERTIES
+
 router.get(
   "/properties",
   verifyToken,

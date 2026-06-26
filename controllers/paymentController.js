@@ -12,7 +12,7 @@ const stripe = new Stripe(
 
 console.log("Stripe Secret:", process.env.STRIPE_SECRET_KEY);
 
-// CREATE PAYMENT INTENT
+
 export const createPayment =
   async (req, res) => {
     try {
@@ -38,7 +38,7 @@ export const createPayment =
     }
   };
 
-// SAVE TRANSACTION
+
 export const saveTransaction =
   async (req, res) => {
     try {
@@ -73,7 +73,7 @@ export const saveTransaction =
     }
   };
 
-// GET ALL TRANSACTIONS (ADMIN)
+
 export const getTransactions =
   async (req, res) => {
     try {

@@ -10,13 +10,13 @@ import {
 
 const router = express.Router();
 
-// ADD FAVORITE
+
 router.post("/", verifyToken, addFavorite);
 
-// GET MY FAVORITES
+
 router.get("/", verifyToken, getFavorites);
 
-// REMOVE FAVORITE
+
 router.delete("/:id", verifyToken, removeFavorite);
 
 export default router;

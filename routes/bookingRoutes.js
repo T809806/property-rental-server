@@ -13,17 +13,17 @@ import verifyRole from "../middleware/verifyRole.js";
 
 const router = express.Router();
 
-// CREATE BOOKING (TENANT)
+
 router.post("/", verifyToken, createBooking);
 
-// USER BOOKINGS (TENANT DASHBOARD)
+
 router.get(
   "/user/:id",
   verifyToken,
   getUserBookings
 );
 
-// OWNER BOOKING REQUESTS
+
 router.get(
   "/owner",
   verifyToken,
@@ -31,7 +31,7 @@ router.get(
   getOwnerBookingRequests
 );
 
-// APPROVE BOOKING (OWNER)
+
 router.patch(
   "/approve/:id",
   verifyToken,
@@ -39,7 +39,7 @@ router.patch(
   approveBooking
 );
 
-// REJECT BOOKING (OWNER)
+
 router.patch(
   "/reject/:id",
   verifyToken,

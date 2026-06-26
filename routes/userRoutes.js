@@ -10,7 +10,7 @@ import verifyRole from "../middleware/verifyRole.js";
 
 const router = express.Router();
 
-// GET ALL USERS (ADMIN)
+
 router.get(
   "/",
   verifyToken,
@@ -18,7 +18,7 @@ router.get(
   getAllUsers
 );
 
-// CHANGE ROLE (ADMIN)
+
 router.patch(
   "/role/:id",
   verifyToken,

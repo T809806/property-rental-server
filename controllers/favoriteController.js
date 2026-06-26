@@ -1,12 +1,12 @@
 import Favorite from "../models/Favorite.js";
 
-// ADD TO FAVORITES
+
 export const addFavorite = async (req, res) => {
   try {
     const userId = req.user.id;
     const { propertyId } = req.body;
 
-    // DUPLICATE CHECK
+    
     const exists = await Favorite.findOne({
       userId,
       propertyId,
@@ -35,7 +35,7 @@ export const addFavorite = async (req, res) => {
   }
 };
 
-// GET USER FAVORITES
+
 export const getFavorites = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -53,7 +53,7 @@ export const getFavorites = async (req, res) => {
   }
 };
 
-// REMOVE FAVORITE
+
 export const removeFavorite = async (req, res) => {
   try {
 

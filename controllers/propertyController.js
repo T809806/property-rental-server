@@ -1,6 +1,6 @@
 import Property from "../models/Property.js";
 
-// ADD PROPERTY
+
 export const addProperty = async (req, res) => {
   try {
     const propertyData = {
@@ -23,7 +23,7 @@ export const addProperty = async (req, res) => {
   }
 };
 
-// GET ALL PROPERTIES + SEARCH + FILTER + SORT
+
    export const getProperties = async (req, res) => {
   try {
     let { page = 1, limit = 6, location, propertyType, sort } = req.query;
@@ -63,7 +63,7 @@ export const addProperty = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// GET FEATURED PROPERTIES
+
 export const getFeaturedProperties = async (req, res) => {
   try {
 
@@ -80,7 +80,7 @@ export const getFeaturedProperties = async (req, res) => {
   }
 };
 
-// GET SINGLE PROPERTY
+
 export const getPropertyById = async (req, res) => {
   try {
 
@@ -103,7 +103,7 @@ export const getPropertyById = async (req, res) => {
   }
 };
 
-// UPDATE PROPERTY
+
 export const updateProperty = async (req, res) => {
   try {
 
@@ -135,7 +135,7 @@ export const updateProperty = async (req, res) => {
   }
 };
 
-// DELETE PROPERTY
+
 export const deleteProperty = async (req, res) => {
   try {
 
@@ -162,7 +162,7 @@ export const deleteProperty = async (req, res) => {
   }
 };
 
-// APPROVE PROPERTY
+
 export const approveProperty = async (req, res) => {
   try {
 
@@ -196,7 +196,7 @@ export const approveProperty = async (req, res) => {
   }
 };
 
-// REJECT PROPERTY
+
 export const rejectProperty = async (req, res) => {
   try {
 

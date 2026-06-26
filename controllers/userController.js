@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 
-// GET ALL USERS
+
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -13,7 +13,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// CHANGE USER ROLE
+
 export const changeUserRole = async (req, res) => {
   try {
     const { role } = req.body;

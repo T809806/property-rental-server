@@ -1,12 +1,14 @@
 import Property from "../models/Property.js";
 import Booking from "../models/Booking.js";
 
-// OWNER ANALYTICS
-export const getOwnerAnalytics = async (req, res) => {
-  try {
-    const ownerId = req.user.id;
 
-    const properties = await Property.find({
+export const getOwnerAnalytics = async (req, res) => {
+
+  try {
+
+ const ownerId = req.user.id;
+
+ const properties = await Property.find({
       owner: ownerId,
     });
 
@@ -49,7 +51,7 @@ export const getOwnerAnalytics = async (req, res) => {
   }
 };
 
-// OWNER PROPERTIES
+
 export const getOwnerProperties = async (
   req,
   res
@@ -67,7 +69,7 @@ export const getOwnerProperties = async (
   }
 };
 
-// MONTHLY EARNINGS
+
 export const getMonthlyEarnings = async (
   req,
   res
