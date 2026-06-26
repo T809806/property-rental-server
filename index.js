@@ -19,19 +19,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// TEST middleware (debug)
+
 app.use((req, res, next) => {
   console.log("🔥", req.method, req.url);
   next();
 });
 
-// MongoDB connect
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected 🚀"))
   .catch((err) => console.log("DB Error:", err));
 
-// ROUTES
+
 app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
 app.use("/api/bookings", bookingRoutes);
@@ -41,9 +41,11 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/owner", ownerRoutes);
 app.use("/api/users", userRoutes);
 
-// test route
+
 app.get("/", (req, res) => {
+
   res.send("Server is running 🚀");
+  
 });
 
 const PORT = process.env.PORT || 5000;
