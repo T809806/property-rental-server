@@ -24,54 +24,45 @@ export const addProperty = async (req, res) => {
 };
 
 // GET ALL PROPERTIES + SEARCH + FILTER + SORT
-export const getProperties = async (req, res) => {
+   export const getProperties = async (req, res) => {
   try {
-    const { location, propertyType, sort } = req.query;
+    let { page = 1, limit = 6, location, propertyType, sort } = req.query;
 
-    let query = {
-      status: "Approved",
-    };
+    page = Number(page);
+    limit = Number(limit);
 
-    // SEARCH
+    const query = { status: "Approved" };
+
     if (location) {
-      query.location = {
-        $regex: location,
-        $options: "i",
-      };
+      query.location = { $regex: location, $options: "i" };
     }
 
-    // FILTER
-    if (
-      propertyType &&
-      propertyType !== "All"
-    ) {
+    if (propertyType && propertyType !== "All") {
       query.propertyType = propertyType;
     }
 
-    let properties = await Property.find(query);
+    let sortOption = {};
 
-    // SORT
-    if (sort === "low") {
-      properties.sort(
-        (a, b) => a.price - b.price
-      );
-    }
+    if (sort === "low") sortOption.price = 1;
+    if (sort === "high") sortOption.price = -1;
 
-    if (sort === "high") {
-      properties.sort(
-        (a, b) => b.price - a.price
-      );
-    }
+    const total = await Property.countDocuments(query);
 
-    res.status(200).json(properties);
+    const properties = await Property.find(query)
+      .sort(sortOption)
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    res.status(200).json({
+      properties,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+    });
 
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+    res.status(500).json({ message: error.message });
   }
 };
-
 // GET FEATURED PROPERTIES
 export const getFeaturedProperties = async (req, res) => {
   try {

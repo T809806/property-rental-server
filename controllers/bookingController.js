@@ -120,21 +120,19 @@ export const approveBooking = async (
 };
 
 // REJECT BOOKING
-export const rejectBooking = async (
-  req,
-  res
-) => {
+
+  export const rejectBooking = async (req, res) => {
   try {
-    const booking =
-      await Booking.findByIdAndUpdate(
-        req.params.id,
-        {
-          status: "Rejected",
-        },
-        {
-          new: true,
-        }
-      );
+    const { reason } = req.body;
+
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: "Rejected",
+        rejectionReason: reason,
+      },
+      { new: true }
+    );
 
     res.status(200).json({
       message: "Booking rejected",

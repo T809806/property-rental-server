@@ -29,6 +29,12 @@ const bookingSchema = new mongoose.Schema(
       default: "Pending",
     },
 
+    rejectionReason: {
+  type: String,
+  default: ""
+},
+
+
     transactionId: String,
   },
   { timestamps: true }
