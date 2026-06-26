@@ -35,8 +35,10 @@ const bookingSchema = new mongoose.Schema(
 },
 
 
-    transactionId: String,
+ transactionId: String,
+
   },
+
   { timestamps: true }
 );
 
