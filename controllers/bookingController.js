@@ -1,7 +1,7 @@
 import Booking from "../models/Booking.js";
 import Property from "../models/Property.js";
 
-// CREATE BOOKING
+
 export const createBooking = async (req, res) => {
   try {
     const {
@@ -43,7 +43,7 @@ export const createBooking = async (req, res) => {
   }
 };
 
-// USER BOOKINGS (TENANT)
+
 export const getUserBookings = async (
   req,
   res
@@ -64,8 +64,9 @@ export const getUserBookings = async (
   }
 };
 
-// OWNER BOOKING REQUESTS
+
 export const getOwnerBookingRequests =
+
   async (req, res) => {
     try {
       const ownerId = req.user.id;
@@ -96,7 +97,7 @@ export const getOwnerBookingRequests =
     }
   };
 
-// APPROVE BOOKING
+
 export const approveBooking = async (
   req,
   res
@@ -125,9 +126,10 @@ export const approveBooking = async (
   }
 };
 
-// REJECT BOOKING
+
 
   export const rejectBooking = async (req, res) => {
+
   try {
     const { reason } = req.body;
 
