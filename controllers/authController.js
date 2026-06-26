@@ -2,8 +2,9 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-// REGISTER
+
 export const registerUser = async (req, res) => {
+
   try {
     const { name, email, password, photo } = req.body;
 
@@ -15,21 +16,25 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({
+const newUser = new User({
+
   name,
   email,
   password: hashedPassword,
   photo,
   role: "Tenant",
+
 });
 
-    await newUser.save();
+await newUser.save();
 
-    res.status(201).json({
-      message: "User registered successfully",
+ res.status(201).json({
+  message: "User registered successfully",
+
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -37,10 +42,12 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// LOGIN
+
 export const loginUser = async (req, res) => {
+
   try {
-    console.log("LOGIN BODY:", req.body);
+
+   console.log("LOGIN BODY:", req.body);
 
     const { email, password } = req.body;
 
