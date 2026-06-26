@@ -14,6 +14,12 @@ export const createBooking = async (req, res) => {
     const property =
       await Property.findById(propertyId);
 
+      if (!property) {
+  return res.status(404).json({
+    message: "Property not found",
+  });
+}
+
     const booking = await Booking.create({
       propertyId,
       userId: req.user.id,
