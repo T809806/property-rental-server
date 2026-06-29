@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import dotenv from "dotenv";
 import Transaction from "../models/Transaction.js";
+import Booking from "../models/Booking.js";
 
 dotenv.config();
 
@@ -58,6 +59,17 @@ export const saveTransaction =
           owner,
           amount,
         });
+
+await Booking.findOneAndUpdate(
+  {
+    propertyId: property,
+    userId: tenant,
+  },
+  {
+    paymentStatus: "Paid",
+    transactionId: transactionId,
+  }
+);
 
       res.status(201).json({
         message:
